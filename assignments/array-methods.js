@@ -56,28 +56,74 @@ const runners = [{"id":1,"first_name":"Charmain","last_name":"Seiler","email":"c
 // ==== Challenge 1: Use .forEach() ====
 // The event director needs both the first and last names of each runner for their running bibs.  Combine both the first and last names into a new array called fullName. 
 let fullName = [];
+runners.forEach(function(element) {
+    let newName = (element.first_name + " " + element.last_name);
+    fullName.push(newName);
+});
 console.log(fullName);
+
+
 
 // ==== Challenge 2: Use .map() ====
 // The event director needs to have all the runner's first names converted to uppercase because the director BECAME DRUNK WITH POWER. Convert each first name into all caps and log the result
 let allCaps = [];
+allCaps = runners.map(function(element) {
+    return element.first_name.toUpperCase();
+});
 console.log(allCaps); 
+
+
 
 // ==== Challenge 3: Use .filter() ====
 // The large shirts won't be available for the event due to an ordering issue.  Get a list of runners with large sized shirts so they can choose a different size. Return an array named largeShirts that contains information about the runners that have a shirt size of L and log the result
 let largeShirts = [];
+largeShirts = runners.filter(function(element) {
+    return element.shirt_size === "L"});
 console.log(largeShirts);
+
+
 
 // ==== Challenge 4: Use .reduce() ====
 // The donations need to be tallied up and reported for tax purposes. Add up all the donations into a ticketPriceTotal array and log the result
 let ticketPriceTotal = [];
+ticketPriceTotal = runners.reduce(function(total, element) {
+    return total + element.donation;
+}, 0);
 console.log(ticketPriceTotal);
 
 // ==== Challenge 5: Be Creative ====
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
 // Problem 1
+// Our runners are human, mostly, so it is quite possible they will forget their id number for check-in. Help them find it by generating an id list by last names.
+let lostID = [];
+runners.forEach(function(element) {
+    let lostInfo = (element.last_name + ": " + element.id);
+    lostID.push(lostInfo);
+});
+console.log(lostID);
+
+
 
 // Problem 2
+// We want to honor the high-donors . . . the rich people . . . so generate a list of wealthy bastards who gave $200 or more!
+let bigMoney = [];
+bigMoney = runners.filter (function(element) {
+    return element.donation > 199;
+});
+console.log(bigMoney);
+
+
 
 // Problem 3
+// In the same vein, we need to know how much money was brought in . . . but only for the donations that were below $200. (Those people may not be invited back next year)
+let blackBalled = [];
+let pennies = [];
+blackBalled = runners.filter(function(element) {
+    return element.donation < 200;
+});
+pennies = blackBalled.reduce(function(total, element) {
+    return total + element.donation;
+}, 0);
+console.log(blackBalled);
+console.log(pennies);
